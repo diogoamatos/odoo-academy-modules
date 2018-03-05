@@ -1,0 +1,11 @@
+<odoo>
+    <record id="0" model="academy.teachers">
+        <field name="name">Diana Padilla</field>
+    </record>
+    <record id="1" model="academy.teachers">
+        <field name="name">Jody Carroll</field>
+    </record>
+    <record id="2" model="academy.teachers">
+        <field name="name">Lester Vaughn</field>
+    </record>
+</odoo>
