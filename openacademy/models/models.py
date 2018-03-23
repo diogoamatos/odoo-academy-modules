@@ -3,8 +3,6 @@
 from odoo import models, fields, api
 
 
-
-
 class Course(models.Model):
     _name = 'openacademy.course'
 
@@ -18,7 +16,6 @@ class Course(models.Model):
     session_ids = fields.One2many('openacademy.session',
                                   'course_id',
                                   string="Sessions")
-
 
 
 class Session(models.Model):
@@ -35,15 +32,3 @@ class Session(models.Model):
                                 string="Course",
                                 required=True)
     attendee_ids = fields.Many2one('res.partner', string="Atendees")
-
-# class openacademy(models.Model):
-#     _name = 'openacademy.openacademy'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
