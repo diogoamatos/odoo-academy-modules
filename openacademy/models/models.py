@@ -31,4 +31,4 @@ class Session(models.Model):
                                 ondelete='cascade',
                                 string="Course",
                                 required=True)
-    attendee_ids = fields.Many2one('res.partner', string="Atendees")
+    attendee_ids = fields.Many2one('res.partner', string="Attendees")
