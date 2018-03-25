@@ -200,8 +200,14 @@ O segundo mecanismo (delegation) permite ligar cada record de um modelo a um rec
 [Documentação de herança do odoo](http://www.odoo.com/documentation/11.0/howtos/backend.html#inheritance)
 
 
+1. [_inherits](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model._inherits)
+
+2. [_inherit](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model._inherit)
+
+
 ### 6.1 View Inheritance
-No lugar de modificar views existentes, Odoo provê 
+Para uma view, herança ocorre por uma "extensão" filho é aplicada à view raiz, podendo adicionar ou remover conteudo da view pai.
+
 
 
 
