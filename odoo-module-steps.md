@@ -253,3 +253,8 @@ O valor do campo geralmente depende do valor de outros no record, o ORM espera q
 
 ### 7.2 Valores padrão
 Qualquer campo pode ser atribuido um valor padrão. Na definição do campo, adiciona-se `default=X` onde X é ou um valor padrão python (booleano, inteiro, fload, string) ou uma função pegando com conjunto de records e retornando um valor.
+
+```python
+name = fields.Char(default="Unknown")
+user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
+```
