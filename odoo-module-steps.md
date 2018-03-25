@@ -205,9 +205,29 @@ O segundo mecanismo (delegation) permite ligar cada record de um modelo a um rec
 2. [_inherit](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model._inherit)
 
 
-### 6.1 View Inheritance
+### 6.2 View Inheritance
 Para uma view, herança ocorre por uma "extensão" filho é aplicada à view raiz, podendo adicionar ou remover conteudo da view pai.
 
+[link](http://www.odoo.com/documentation/11.0/howtos/backend.html#view-inheritance)
+
+### 6.3 Domains
+Valores de dominios são condições registradas em um record. Uma lista de critérios são utiliados para selecionar um subset de valores de um model. Cada critério é composto por um field name, um operador e um valor.
+
+```python
+[('product_type', '=', 'service'), ('unit_price', '>', 1000)]
+```
+
+Por padrão, critérios são combinados implicitamente com (AND) e são combinados por operadores lógicos & (and), | (OR) e !(NOT) expĺicitamente:
+
+```python
+['|',
+    ('product_type', '=', 'service'),
+    '!', '&',
+        ('unit_price', '>=', 1000),
+        ('unit_price', '<', 2000)]
+```
+
+Um parâmetro `domain` pode ser adicionado a campos relacionados para limitar recods válidos para o relacionamento quando seleciona-se records na interface do cliente.
 
 
 
