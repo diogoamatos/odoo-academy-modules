@@ -250,7 +250,6 @@ Para criar um campo computado, cria-se tal campo e adiciona-se o atributo `compu
 ### 7.1 Dependencias
 O valor do campo geralmente depende do valor de outros no record, o ORM espera que o dev especifique as dependências para o método com o decorador `depends(.)`.
 
-
 ### 7.2 Valores padrão
 Qualquer campo pode ser atribuido um valor padrão. Na definição do campo, adiciona-se `default=X` onde X é ou um valor padrão python (booleano, inteiro, fload, string) ou uma função pegando com conjunto de records e retornando um valor.
 
@@ -258,3 +257,6 @@ Qualquer campo pode ser atribuido um valor padrão. Na definição do campo, adi
 name = fields.Char(default="Unknown")
 user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
 ```
+
+## 8. Onchange
+É um mecanismo que provê uma maneira para a interface do cliente atualizar um formulário quando o usuário preencher um valor em algum campo, sem contato com a base de dados.
