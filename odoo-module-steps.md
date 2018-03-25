@@ -229,5 +229,5 @@ Por padrão, critérios são combinados implicitamente com (AND) e são combinad
 
 Um parâmetro `domain` pode ser adicionado a campos relacionados para limitar recods válidos para o relacionamento quando seleciona-se records na interface do cliente.
 
-
+[Documentação](http://www.odoo.com/documentation/11.0/reference/orm.html#domains)
 
