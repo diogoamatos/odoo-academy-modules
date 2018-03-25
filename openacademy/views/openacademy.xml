@@ -64,6 +64,7 @@
                             <field name="course_id"/>
                             <field name="name"/>
                             <field name="instructor_id"/>
+                            <field name="active"/>
                         </group>
                         <group string="Schedule">
                             <field name="start_date"/>
@@ -87,6 +88,16 @@
                 <field name="course_id"/>
                 <field name="taken_seats" widget="progressbar"/>
             </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="session_search_view">
+        <field name="name">session.search</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="course_id"/>
+                <filter string="Inativo" name="active" domain="[('active', '=',False)]"/>
+            </search>
         </field>
     </record>
     <!-- END SESSION VIEWS -->
