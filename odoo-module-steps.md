@@ -231,3 +231,21 @@ Um parâmetro `domain` pode ser adicionado a campos relacionados para limitar re
 
 [Documentação](http://www.odoo.com/documentation/11.0/reference/orm.html#domains)
 
+## 7. Campos computados e valores padrão
+Até agora campos foram armazenados e adquiridos diretamente de uma base de dados. Campos podem ser também computados. Nesse caso, o valor do campo não é retirado da base de dados, mas sim computados imediatamente chamando um método do modelo.
+
+```python
+    name = fields.Char(compute='_compute_name')
+```
+
+Para criar um campo computado, cria-se tal campo e adiciona-se o atributo `compute` para o nome do objeto. O método deve simplismente adicionar o valor do campo em cada record em `self`.
+
+```python
+@api.depends('value')
+    def _compute_name(self):
+        for record in self:
+            record.name = "Record with value %s" % record.value
+```
+
+### 7.1 Dependencias
+O valor do campo geralmente depende do valor de outros no record, o ORM espera que o dev especifique as dependências para o método com o decorador `depends(.)`.
