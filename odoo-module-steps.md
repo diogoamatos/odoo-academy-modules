@@ -329,3 +329,6 @@ Grupos são criados como records no modelo `res.groups`, e são garantidos acess
 
 1. Access rights
 Definidos como records do modelo `ir.model.access`. Cada permisão de acesso deve ser associada a um modelo, grupo e conjunto de permissão: read, write, create, unlink.
+
+2. Record rules
+Restringe o acesso a um subconjunto de records de um modelo. Uma regra deve ser `ir.rule` e associada a um modelo, um numero de grupos, restrições aplicaveis e um dominio.
