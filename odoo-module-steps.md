@@ -289,7 +289,7 @@ def _onchange_price(self):
 ## 9. Restrições de models
 Odoo provê duas maneiras para montar automaticamente variáveis verificadas: 
 
-1. [Python Constraint](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.api.constrains)
+### 9.1 [Python Constraint](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.api.constrains)
 Decora uma restrição de modelo especificando os campos utilizados na validação, avaliando automaticamente quando é modificado e espera como retorno uma exception se não satisfeita.
 
 ```python
@@ -303,10 +303,29 @@ def _check_something(self):
     # all records passed the test, don't return anything
 ```
 
-2. [SQL Constraint](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model._sql_constraints)
+### 9.2 [SQL Constraint](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model._sql_constraints)
 
 Restrições SQL são definidas pelo atributo do modelo, `_sql_constraints`, ao qual é atribuido uma lista com tres strings `(name, sql_definition, message)`.
 
 Documentação [PostgreSQL](https://www.postgresql.org/docs/9.3/static/ddl-constraints.html)
 
 
+## 10. Advanced views
+
+1. Tree view
+2. Calendars
+3. Search views
+4. Gantt (enterprise)
+5. Graph views
+6. Kanban
+[Doc](http://www.odoo.com/documentation/11.0/howtos/backend.html#advanced-views)
+
+
+## 11. Security
+O mecanismo de controle de acesso deve ser configurado para atingir uma politica de segurança coerente.
+
+### 11.1 Group-based access control mechanisms
+Grupos são criados como records no modelo `res.groups`, e são garantidos acessos via menus definidos. Entretanto, mesmo sem acesso ao menu, objetos podem ser acessados indiretamente, portanto, permissões a nivel de objeto devem ser definidas para grupos.
+
+1. Access rights
+Definidos como records do modelo `ir.model.access`. Cada permisão de acesso deve ser associada a um modelo, grupo e conjunto de permissão: read, write, create, unlink.

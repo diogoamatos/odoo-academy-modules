@@ -37,6 +37,12 @@
             <search>
                 <field name="name"/>
                 <field name="description"/>
+                <filter name="my_courses" string="Course"
+                        domain="[('responsible_id', '=', uid)]"/>
+                <group string="Group By">
+                    <filter name="by_responsible" string="Responsible"
+                            context="{'group_by': 'responsible_id'}"/>
+                </group>
             </search>
         </field>
     </record>
@@ -83,9 +89,10 @@
         <field name="name">session.tree</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
-            <tree string="Session Tree">
+            <tree string="Session Tree" decoration-info="duration&lt;5" decoration-danger="duration&gt;15">
                 <field name="name"/>
                 <field name="course_id"/>
+                <field name="duration" invisible="1"/>
                 <field name="taken_seats" widget="progressbar"/>
             </tree>
         </field>
@@ -100,6 +107,26 @@
             </search>
         </field>
     </record>
+    <record model="ir.ui.view" id="session_calendar_view">
+        <field name="name">session.calendar</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <calendar string="Session Calendar" date_start="start_date" date_stop="end_date" color="instructor_id">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="openacademy_session_graph_view">
+        <field name="name">openacademy.session.graph</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <graph string="Participations by Courses">
+                <field name="course_id"/>
+                <field name="attendees_count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
     <!-- END SESSION VIEWS -->
 
     <!-- window action -->
@@ -112,6 +139,7 @@
         <field name="res_model">openacademy.course</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="context" eval="{'search_default_my_courses': 1}"/>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">Create the first course
             </p>
@@ -121,7 +149,7 @@
         <field name="name">Sessions</field>
         <field name="res_model">openacademy.session</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,calendar,graph</field>
     </record>
 
 
