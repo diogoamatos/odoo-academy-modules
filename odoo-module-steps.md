@@ -259,4 +259,54 @@ user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
 ```
 
 ## 8. Onchange
-É um mecanismo que provê uma maneira para a interface do cliente atualizar um formulário quando o usuário preencher um valor em algum campo, sem contato com a base de dados.
+É um mecanismo que provê uma maneira para a interface do cliente atualizar um formulário quando o usuário preencher um valor em algum campo, sem que ocorra contato com a base de dados.
+
+Um exemplo disso, em uma situação em que um modelo possui tres campos, quantidade `amount` e preço unitário `unit_price`, e preço `price`, e é necessário que o preço no formulario seja atualizado quando alguma das outras variáveis sejam modificadas. Para isso, define-se um método, onde `self` representa o record no formulário, decorado por `onchange(..)` para especificar qual campo inicia sua execução. Quaisquer mudanças em `self` será apresentada no form.
+
+```xml
+<!-- content of form view -->
+<field name="amount"/>
+<field name="unit_price"/>
+<field name="price" readonly="1"/>
+```
+
+
+```python
+# onchange handler
+@api.onchange('amount', 'unit_price')
+def _onchange_price(self):
+    # set auto-changing field
+    self.price = self.amount * self.unit_price
+    # Can optionally return a warning and domains
+    return {
+        'warning': {
+            'title': "Something bad happened",
+            'message': "It was very bad indeed",
+        }
+    }
+```
+
+## 9. Restrições de models
+Odoo provê duas maneiras para montar automaticamente variáveis verificadas: 
+
+1. [Python Constraint](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.api.constrains)
+Decora uma restrição de modelo especificando os campos utilizados na validação, avaliando automaticamente quando é modificado e espera como retorno uma exception se não satisfeita.
+
+```python
+from odoo.exceptions import ValidationError
+
+@api.constrains('age')
+def _check_something(self):
+    for record in self:
+        if record.age > 20:
+            raise ValidationError("Your record is too old: %s" % record.age)
+    # all records passed the test, don't return anything
+```
+
+2. [SQL Constraint](http://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model._sql_constraints)
+
+Restrições SQL são definidas pelo atributo do modelo, `_sql_constraints`, ao qual é atribuido uma lista com tres strings `(name, sql_definition, message)`.
+
+Documentação [PostgreSQL](https://www.postgresql.org/docs/9.3/static/ddl-constraints.html)
+
+
